@@ -1,5 +1,6 @@
 package com.danielpark.algorithm
 
+import java.lang.StringBuilder
 import java.util.LinkedList
 
 /**
@@ -14,8 +15,8 @@ object GAL {
     // Size of array will be V (number of vertices
     // in graph)
     internal class Graph// constructor
-        (var V: Int) {
-        var adjListArray: Array<LinkedList<Int>?> = arrayOfNulls(V)
+        (val V: Int, val hasDirection: Boolean) {
+        val adjListArray: Array<LinkedList<Int>?> = arrayOfNulls(V)
 
         init {
 
@@ -35,22 +36,30 @@ object GAL {
         // Add an edge from src to dest.
         graph.adjListArray[src]!!.add(dest)
 
-        // Since graph is undirected, add an edge from dest
-        // to src also
-        graph.adjListArray[dest]!!.add(src)
+        if (!graph.hasDirection) {
+            // Since graph is undirected, add an edge from dest
+            // to src also
+            graph.adjListArray[dest]!!.add(src)
+        }
     }
 
     // A utility function to print the adjacency list
     // representation of graph
-    internal fun printGraph(graph: Graph) {
+    internal fun printGraph(graph: Graph) : String {
+        val stringBuilder = StringBuilder()
+
         for (v in 0 until graph.V) {
-            println("Adjacency list of vertex $v")
-            print("head")
+            stringBuilder.append("Adjacency list of vertex $v\n")
+            stringBuilder.append("head")
             for (pCrawl in graph.adjListArray[v]!!) {
-                print(" -> $pCrawl")
+                stringBuilder.append(" -> $pCrawl")
             }
-            println("\n")
+            stringBuilder.append("\n\n")
         }
+
+        print(stringBuilder.toString())
+
+        return stringBuilder.toString()
     }
 
 }

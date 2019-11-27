@@ -8,7 +8,7 @@ package com.danielpark.algorithm
  */
 object GAM  {
 
-    internal class Graph(val V: Int) {
+    internal class Graph(val V: Int, val hasDirection: Boolean) {
         // Consider there are [V][V] -> 0
         val matrix = Array(V) {Array(V) {0} }
     }
@@ -16,19 +16,26 @@ object GAM  {
     internal fun addEdge(graph: Graph, src:Int, dest: Int) {
         graph.matrix[src][dest] = 1
 
-        // This graph exist for undirected graph
-        graph.matrix[dest][src] = 1
+        if (!graph.hasDirection) {
+            // This graph exist for undirected graph
+            graph.matrix[dest][src] = 1
+        }
     }
 
-    internal fun printGraph(graph: Graph) {
+    internal fun printGraph(graph: Graph) : String {
+        val stringBuilder = StringBuilder()
 
         for (i in 0 until graph.V) {
-            System.out.println("Adjacency matrix of vertex $i")
+            stringBuilder.append("Adjacency matrix of vertex $i\n")
             for ((j, value) in graph.matrix[i].withIndex()) {
-                print(" -> [$i, $j] = $value")
+                stringBuilder.append(" -> [$i, $j] = $value")
             }
-            println("\n")
+            stringBuilder.append("\n\n")
         }
+
+        print(stringBuilder.toString())
+
+        return stringBuilder.toString()
     }
 
 }
