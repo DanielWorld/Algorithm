@@ -102,4 +102,79 @@ class AlgorithmTest {
                 " -> [4, 0] = 1 -> [4, 1] = 1 -> [4, 2] = 0 -> [4, 3] = 1 -> [4, 4] = 0\n" +
                 "\n", printResult)
     }
+
+    @Test
+    fun graph_breadth_first_search() {
+        val graph = GAL.Graph(4, true)
+        GAL.addEdge(graph, 0, 1)
+        GAL.addEdge(graph, 0, 2)
+        GAL.addEdge(graph, 1, 2)
+        GAL.addEdge(graph, 2, 0)
+        GAL.addEdge(graph, 2, 3)
+        GAL.addEdge(graph, 3, 3)
+
+        assertEquals("start -> 0\n",
+                BFSG.printResult(BFSG.search(graph, 0, 0)))
+        
+
+        assertEquals("start -> 0 -> 1\n",
+                BFSG.printResult(BFSG.search(graph, 0, 1)))
+        
+
+        assertEquals("start -> 0 -> 1 -> 2\n",
+                BFSG.printResult(BFSG.search(graph, 0, 2)))
+        
+
+        assertEquals("start -> 0 -> 1 -> 2 -> 3\n",
+                BFSG.printResult(BFSG.search(graph, 0, 3)))
+        
+
+        assertEquals("start -> 1 -> 2 -> 0\n",
+                BFSG.printResult(BFSG.search(graph, 1, 0)))
+        
+
+        assertEquals("start -> 1\n",
+                BFSG.printResult(BFSG.search(graph, 1, 1)))
+        
+
+        assertEquals("start -> 1 -> 2\n",
+                BFSG.printResult(BFSG.search(graph, 1, 2)))
+        
+
+        assertEquals("start -> 1 -> 2 -> 0 -> 3\n",
+                BFSG.printResult(BFSG.search(graph, 1, 3)))
+        
+
+        assertEquals("start -> 2 -> 0\n",
+                BFSG.printResult(BFSG.search(graph, 2, 0)))
+        
+
+        assertEquals("start -> 2 -> 0 -> 3 -> 1\n",
+                BFSG.printResult(BFSG.search(graph, 2, 1)))
+        
+
+        assertEquals("start -> 2\n",
+                BFSG.printResult(BFSG.search(graph, 2, 2)))
+        
+
+        assertEquals("start -> 2 -> 0 -> 3\n",
+                BFSG.printResult(BFSG.search(graph, 2, 3)))
+        
+
+        assertEquals("start -> 3 -> -1\n",
+                BFSG.printResult(BFSG.search(graph, 3, 0)))
+        
+
+        assertEquals("start -> 3 -> -1\n",
+                BFSG.printResult(BFSG.search(graph, 3, 1)))
+        
+
+        assertEquals("start -> 3 -> -1\n",
+                BFSG.printResult(BFSG.search(graph, 3, 2)))
+        
+
+        assertEquals("start -> 3\n",
+                BFSG.printResult(BFSG.search(graph, 3, 3)))
+        
+    }
 }
